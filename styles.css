@@ -1,0 +1,329 @@
+/* ========== Global Variables ========== */
+/* Reusable variables for colors, fonts, and sizes to maintain consistency */
+:root {
+    --primary-color: #2c3e50; /* Dark blue for primary elements */
+    --secondary-color: #ecf0f1; /* Light gray for backgrounds */
+    --highlight-color: #e74c3c; /* Red for interactive highlights */
+    --text-color: #34495e; /* Default text color */
+    --background-color: #f8f9fa; /* Page background */
+    --card-background: #ffffff; /* White for cards */
+    --border-radius: 10px; /* Rounded corners */
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    --transition-speed: 0.3s; /* Smooth animations */
+    --font-family: 'Roboto', sans-serif; /* Clean, modern font */
+}
+
+/* Dark Mode Theme */
+[data-theme="dark"] {
+    --primary-color: #4a5d68; /* Muted blue-gray for header */
+    --secondary-color: #2e3b43; /* Slightly darker gray for backgrounds */
+    --highlight-color: #e76f51; /* Warm orange-red for highlights */
+    --text-color: #d9e2ec; /* Light gray-blue for text */
+    --background-color: #1e2a33; /* Deep muted blue-gray for page background */
+    --card-background: #2a3a44; /* Slightly lighter gray for cards */
+    --border-radius: 10px; /* Rounded corners stay the same */
+    --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Subtle shadow for depth */
+}
+
+
+/* ========== Reset & Global Styles ========== */
+/* Remove default margins, paddings, and ensure consistent box sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure full-page height */
+}
+
+/* ========== Header ========== */
+header {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 5px solid var(--highlight-color); /* Add visual separation */
+}
+
+header h1 {
+    color: var(--background-color);
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Space between nav links */
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    transition: color var(--transition-speed); /* Smooth hover effect */
+}
+
+nav a:hover {
+    color: var(--highlight-color); /* Highlights on hover */
+}
+
+/* Default button styles */
+.theme-toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Remove padding for circular button */
+}
+/* Responsive adjustments for theme mode buttons*/
+@media (max-width: 768px) {
+    .theme-toggle {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .theme-toggle {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.6rem;
+    }
+}
+
+/* Hover effect */
+.theme-toggle:hover {
+    background-color: var(--highlight-color);
+    color: var(--secondary-color);
+    transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Active (pressed) effect */
+.theme-toggle:active {
+    transform: scale(0.95); /* Slightly shrink on click */
+}
+
+/* Dark Mode Specific */
+[data-theme="dark"] .theme-toggle {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+/* Loader container */
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust height as needed */
+}
+
+/* Spinner animation */
+.loader::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 5px solid var(--secondary-color); /* Outer ring color */
+    border-top-color: var(--highlight-color); /* Spinning color */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Keyframes for spinning animation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+/* ========== Main Content ========== */
+/* Adding a centered layout with a responsive design */
+main {
+    flex: 1; /* Expands to push footer down when content is short */
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto; /* Center content */
+}
+
+/* Dropdown selector for categories*/
+.category-selector {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.category-selector h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+select {
+    width: 60%;
+    max-width: 400px;
+    padding: 0.75rem;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
+    transition: border-color var(--transition-speed);
+}
+
+select:focus {
+    border-color: var(--highlight-color); /* Adds focus highlight */
+}
+
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.category-tabs button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+
+.category-tabs button:hover {
+    background-color: var(--highlight-color);
+    color: var(--secondary-color);
+}
+
+.category-tabs button.active {
+    background-color: var(--highlight-color);
+    color: var(--secondary-color);
+}
+
+
+/* ========== Top Stories Section ========== */
+/* Responsive grid for displaying cards */
+.top-stories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adapts to screen size */
+    gap: 2rem; /* Space between cards */
+}
+
+.story {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.story:hover {
+    transform: translateY(-10px); /* Lift effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+/* Image and text styling inside story cards */
+.story img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 3px solid var(--highlight-color);
+}
+
+.story h3 {
+    margin: 1rem;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.story p {
+    margin: 0 1rem 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* 'Read More' links with buttons for interaction */
+.story a {
+    margin: auto 1rem 1rem;
+    text-align: center;
+    display: block;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--highlight-color);
+    padding: 0.5rem;
+    border: 2px solid var(--highlight-color);
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.story a:hover {
+    background-color: var(--highlight-color);
+    color: var(--secondary-color);
+}
+
+/* ========== Footer ========== */
+footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto; /* Pushes footer to bottom */
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+}
+
+footer a {
+    color: var(--highlight-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+footer a:hover {
+    color: var(--secondary-color);
+}
+
+/* ========== Responsive Design ========== */
+/* Adjust typography and layout for larger screens */
+@media (min-width: 768px) {
+    body {
+        font-size: 18px; /* Slightly larger font size */
+    }
+
+    header h1 {
+        font-size: 2.5rem; /* Larger header title */
+    }
+
+    .category-selector h2 {
+        font-size: 1.75rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .top-stories {
+        grid-template-columns: repeat(3, 1fr); /* Display three cards per row */
+    }
+}
