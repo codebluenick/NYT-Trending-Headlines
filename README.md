@@ -22,5 +22,3 @@ A web application that provides users with quick and categorized access to trend
 
 2. Navigate to the project directory and open index.html.
 
-
-* (Note - I have not deployed the page as the private repo that I accepted did not allow me.)
